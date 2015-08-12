@@ -56,7 +56,7 @@ SysDisplay::~SysDisplay()
 int main()
 {
 	SysDisplay disp(800,600,60);
-	
+	disp.ClearScreen();
 	disp.UpdateWindow();
 	SDL_Delay(1000*4);
 
