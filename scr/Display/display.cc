@@ -18,16 +18,22 @@ SysDisplay::SysDisplay(uint32_t _width, uint32_t _height, double _frames_per_sec
 	}
 	win = SDL_CreateWindow("SysDisplay",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,
 				width,height,SDL_WINDOW_RESIZABLE);
-	
-	win_surface = SDL_GetWindowSurface(win);
+
+	win_render = SDL_CreateRenderer(win, -1, 0);
+	win_texture = SDL_CreateTexture(win_render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, width, height);
 	
 }
 
 
 
-void SysDisplay::ClearScreen() const
+void SysDisplay::ClearScreen()
 {
-	std::fill_n(static_cast<uint32_t*>(win_surface->pixels),win_max_size,~0);
+	
+	SDL_RenderClear(win_render);
+	uint32_t pixel[win_max_size];
+	std::fill_n(pixel,win_max_size,~0);
+	SDL_UpdateTexture(win_texture,nullptr,pixel,width*4);
+	
 }
 
 
@@ -38,7 +44,8 @@ void SysDisplay::ClearScreen() const
 void SysDisplay::UpdateWindow() const
 {
 
-	SDL_UpdateWindowSurface(win);
+	SDL_RenderCopy(win_render,win_texture,nullptr,nullptr);
+	SDL_RenderPresent(win_render);
 }
 
 
@@ -46,7 +53,8 @@ SysDisplay::~SysDisplay()
 {
 
 	std::cout << "Destroying SysDisplay\n";	
-	SDL_FreeSurface(win_surface);
+	SDL_DestroyRenderer(win_render);
+	SDL_DestroyTexture(win_texture);
 	SDL_DestroyWindow(win);
 
 }

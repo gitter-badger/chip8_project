@@ -3,7 +3,7 @@ class SysDisplay
 {
 public:
 	SysDisplay(uint32_t _width, uint32_t _height, double _frames_per_second);
-	void ClearScreen() const;
+	void ClearScreen();
 	virtual void UpdateWindow() const;
 	virtual ~SysDisplay();
 
@@ -14,7 +14,8 @@ protected:
 	size_t win_max_size;
 private:
 	SDL_Window *win;
-	SDL_Surface *win_surface;
+	SDL_Renderer *win_render;
+	SDL_Texture *win_texture;
 
 	
 
