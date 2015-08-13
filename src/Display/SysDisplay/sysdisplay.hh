@@ -2,12 +2,16 @@
 #define SYSDISPLAY_HH
 
 
+
+
+namespace Display {
+
 class SysDisplay
 {
 public:
-	SysDisplay(uint32_t _width, uint32_t _height, double _frames_per_second);
-	virtual void ClearScreen() = 0;
-	virtual void UpdateWindow() = 0;
+	SysDisplay(uint32_t _width, uint32_t _height, float _frames_per_second);
+	virtual void ClearScreen() const = 0;
+	virtual void UpdateWindow() const = 0;
 	virtual ~SysDisplay();
 
 protected:
@@ -24,7 +28,7 @@ protected:
 
 };
 
-
+}
 
 
 

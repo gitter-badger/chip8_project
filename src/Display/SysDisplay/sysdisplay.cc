@@ -2,11 +2,19 @@
 #include <iostream>
 #include "sysdisplay.hh"
 
+namespace Display{
 
-SysDisplay::SysDisplay(uint32_t _width, uint32_t _height, double _frames_per_second) 	:	
+
+
+
+SysDisplay::SysDisplay(uint32_t _width, uint32_t _height, float _frames_per_second) 	:	
 	width { _width }, height { _height }, frames_per_sec { _frames_per_second }, win_max_size{ width*height },
 	win{nullptr}
+
+
 {
+
+
 	std::cout << "Constructing SysDisplay\n";
 
 
@@ -30,6 +38,10 @@ SysDisplay::SysDisplay(uint32_t _width, uint32_t _height, double _frames_per_sec
 }
 
 
+
+
+
+
 SysDisplay::~SysDisplay()
 {
 
@@ -38,3 +50,4 @@ SysDisplay::~SysDisplay()
 
 }
 
+}
